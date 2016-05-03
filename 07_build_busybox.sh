@@ -1,5 +1,7 @@
 #!/bin/sh
 
+. ./.config
+
 # Find the glibc installation area.
 cd work/glibc
 cd $(ls -d *)
@@ -31,7 +33,7 @@ sed -i "s/.*CONFIG_SYSROOT.*/CONFIG_SYSROOT=$GLIBC_INSTALLED_ESCAPED/" .config
 sed -i "s/.*CONFIG_INETD.*/CONFIG_INETD=n/" .config
 
 # Compile busybox with optimization for "parallel jobs" = "number of processors".
-make busybox -j $(grep ^processor /proc/cpuinfo | wc -l)
+make busybox -j $NUM_PROCESSORS
 
 # Create the symlinks for busybox. The file 'busybox.links' is used for this.
 make install

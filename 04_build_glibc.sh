@@ -1,5 +1,7 @@
 #!/bin/sh
 
+. ./.config
+
 # Find the kernel build directory.
 cd work/kernel
 cd $(ls -d *)
@@ -31,7 +33,7 @@ cd ../glibc_objects
 
 
 # Compile glibc with optimization for "parallel jobs" = "number of processors".
-make -j $(grep ^processor /proc/cpuinfo | wc -l)
+make -j $NUM_PROCESSORS
 
 # Install glibc in the installation area, e.g. 'work/glibc/glibc-2.23/glibc_installed'.
 make install DESTDIR=$GLIBC_INSTALLED -j $(grep ^processor /proc/cpuinfo | wc -l)
