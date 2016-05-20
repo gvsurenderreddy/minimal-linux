@@ -9,7 +9,7 @@ WORK_KERNEL_DIR=$(pwd)
 cd ../../..
 
 # Remove the old ISO file if it exists.
-rm -f minimal_linux_live_J$NUM_PROCESSORS.iso
+rm -f minimal_linux_live.iso
 
 # Remove the old ISO generation area if it exists.
 rm -rf work/isoimage
@@ -49,13 +49,13 @@ chmod +r src/*.txt
 echo 'default kernel.bz  initrd=rootfs.gz' > ./isolinux.cfg
 
 # Now we generate the ISO image file.
-genisoimage -J -r -o ../minimal_linux_live_J$NUM_PROCESSORS.iso -b isolinux.bin -c boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table ./
+genisoimage -J -r -o ../minimal_linux_live.iso -b isolinux.bin -c boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table ./
 
 # This allows the ISO image to be bootable if it is burned on USB flash drive.
-isohybrid ../minimal_linux_live_J$NUM_PROCESSORS.iso 2>/dev/null || true
+isohybrid ../minimal_linux_live.iso 2>/dev/null || true
 
 # Copy the ISO image to the root project folder.
-cp ../minimal_linux_live_J$NUM_PROCESSORS.iso ../../
+cp ../minimal_linux_live.iso ../../
 
 cd ../..
 
